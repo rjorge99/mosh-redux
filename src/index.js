@@ -1,15 +1,7 @@
-// const { addBug, resolveBug } = require('./actions');
-const { store } = require('./store');
+const configureStore = require('./store/configureStore');
+import * as actions from './store/bugs';
 
-// store.subscribe(() => {
-//     console.log('Store changed', store.getState());
-// });
-
-// store.dispatch(addBug('Bug1'));
-// store.dispatch(resolveBug(1));
-
-// import store from './customStore';
-import * as actions from './actions';
+const store = configureStore;
 
 store.subscribe(() => {
     console.log('State changed', store.getState());
