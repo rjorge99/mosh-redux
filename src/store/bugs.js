@@ -10,8 +10,16 @@ const bugSlice = createSlice({
         lastFetch: null
     },
     reducers: {
+        bugsRequested: (bugs) => {
+            bugs.loading = true;
+        },
+        bugsRequestFailed: (bugs) => {
+            bugs.loading = true;
+        },
         bugsReceived: (bugs, action) => {
             bugs.list = action.payload;
+            bugs.loading = false;
+            bugs.lastFetch = Date.now();
         },
         addBug: (bugs, action) => {
             bugs.list.push({
@@ -31,15 +39,29 @@ const bugSlice = createSlice({
     }
 });
 
-export const { addBug, resolveBug, bugAssigned, bugsReceived } = bugSlice.actions;
+export const { addBug, resolveBug, bugAssigned, bugsReceived, bugsRequested, bugsRequestFailed } = bugSlice.actions;
 export default bugSlice.reducer;
 
 //Action Creators
 const url = '/bugs';
-export const loadBugs = apiCallBegan({
-    url,
-    onSuccess: bugsReceived.type
-});
+export const loadBugs = () => (dispatch, getState) => {
+    const { lastFetch } = getState().entities.bugs;
+    console.log(lastFetch);
+    dispatch(
+        apiCallBegan({
+            url,
+            onSuccess: bugsReceived.type,
+            onStart: bugsRequested.type,
+            onError: bugsRequestFailed.type
+        })
+    );
+};
+// export const loadBugs = () => apiCallBegan({
+//     url,
+//     onSuccess: bugsReceived.type,
+//     onStart: bugsRequested.type,
+//     onError: bugsRequestFailed.type
+// });
 
 //Selector
 // export const getUnresolvedBugs = (state) => state.entities.bugs.filter((bug) => !bug.resolved);
