@@ -1,4 +1,4 @@
-import { createAction, createReducer, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 let id = 0;
 const bugSlice = createSlice({
