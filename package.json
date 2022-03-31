@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.8.0",
+        "axios": "^0.26.1",
         "redux": "^4.1.2",
         "redux-devtools-extension": "^2.13.9"
     }
