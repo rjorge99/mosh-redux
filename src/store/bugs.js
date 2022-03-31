@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createSelector } from 'reselect';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 let id = 0;
 const bugSlice = createSlice({
@@ -34,6 +33,7 @@ export const getUnresolvedBugs = createSelector(
     (bugs) => bugs.filter((b) => !b.resolved)
 );
 
+//Nota: createSelector regresa una funcion
 export const getBugsByUserId = (userId) =>
     createSelector(
         (state) => state.entities.bugs,

@@ -26,5 +26,5 @@ store.dispatch(bugAssigned({ bugId: 1, userId: 1 }));
 const unresolvedBugs = getUnresolvedBugs(store.getState());
 console.log(unresolvedBugs);
 
-const bugsByUserId = getBugsByUserId(1)(store.getState());
-console.log(bugsByUserId);
+const bugs = getBugsByUserId(1)(store.getState());
+console.log('bugsById', bugs);
