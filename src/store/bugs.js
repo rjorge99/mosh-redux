@@ -23,6 +23,7 @@ const bugSlice = createSlice({
             bugs.lastFetch = Date.now();
         },
         bugAdded: (bugs, action) => {
+            console.log('action', action);
             bugs.list.push(action.payload);
         },
         bugResolved: (bugs, action) => {
@@ -36,8 +37,14 @@ const bugSlice = createSlice({
     }
 });
 
-const { bugAdded, bugResolved, bugAssigned, bugsReceived, bugsRequested, bugsRequestFailed } =
-    bugSlice.actions;
+export const {
+    bugAdded,
+    bugResolved,
+    bugAssigned,
+    bugsReceived,
+    bugsRequested,
+    bugsRequestFailed
+} = bugSlice.actions;
 export default bugSlice.reducer;
 
 //Action Creators

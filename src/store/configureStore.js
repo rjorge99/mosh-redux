@@ -10,8 +10,8 @@ export default function () {
         reducer,
         middleware: (getDefaultMiddleware) => [
             ...getDefaultMiddleware(),
-            // logger('console'),
-            // tostify,
+            logger('console'),
+            tostify,
             api
         ]
     });
