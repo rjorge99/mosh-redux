@@ -6,6 +6,6 @@ const store = configureStore();
 
 store.dispatch(loadBugs());
 
-setTimeout(() => {
-    store.dispatch(assignBugToUser(1, 4));
-}, 1000);
+// setTimeout(() => {
+//     store.dispatch(assignBugToUser(1, 4));
+// }, 1000);

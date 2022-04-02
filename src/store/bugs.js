@@ -15,7 +15,7 @@ const bugSlice = createSlice({
             bugs.loading = true;
         },
         bugsRequestFailed: (bugs) => {
-            bugs.loading = true;
+            bugs.loading = false;
         },
         bugsReceived: (bugs, action) => {
             bugs.list = action.payload;
@@ -37,14 +37,7 @@ const bugSlice = createSlice({
     }
 });
 
-export const {
-    bugAdded,
-    bugResolved,
-    bugAssigned,
-    bugsReceived,
-    bugsRequested,
-    bugsRequestFailed
-} = bugSlice.actions;
+export const { bugAdded, bugResolved, bugAssigned, bugsReceived, bugsRequested, bugsRequestFailed } = bugSlice.actions;
 export default bugSlice.reducer;
 
 //Action Creators
@@ -54,7 +47,7 @@ export const loadBugs = () => (dispatch, getState) => {
     const diffMinutes = moment().diff(lastFetch, 'minutes');
     if (diffMinutes < 10) return;
 
-    dispatch(
+    return dispatch(
         apiCallBegan({
             url,
             onSuccess: bugsReceived.type,
@@ -92,12 +85,12 @@ export const assignBugToUser = (bugId, userId) =>
 // export const getUnresolvedBugs = (state) => state.entities.bugs.filter((bug) => !bug.resolved);
 export const getUnresolvedBugs = createSelector(
     (state) => state.entities.bugs,
-    (bugs) => bugs.filter((b) => !b.resolved)
+    (bugs) => bugs.list.filter((b) => !b.resolved)
 );
 
 //Nota: createSelector regresa una funcion
 export const getBugsByUserId = (userId) =>
     createSelector(
         (state) => state.entities.bugs,
-        (bugs) => bugs.filter((b) => b.userId === userId)
+        (bugs) => bugs.list.filter((b) => b.userId === userId)
     );
